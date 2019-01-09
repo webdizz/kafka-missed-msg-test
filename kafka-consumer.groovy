@@ -14,7 +14,9 @@ Properties consumerProps = new Properties()
 consumerProps.put('zk.connect', 'localhost:2181')
 String kafkaHost = System.env['KAFKA_HOSTS']
 consumerProps.put('bootstrap.servers', kafkaHost)
-consumerProps.put(ConsumerConfig.GROUP_ID_CONFIG, "my-group")
+// consumerProps.put(ConsumerConfig.GROUP_ID_CONFIG, "consumer")
+// consumerProps.put(ConsumerConfig.GROUP_ID_CONFIG, "groovy_1")
+consumerProps.put(ConsumerConfig.GROUP_ID_CONFIG, "groovy_2")
 consumerProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer)
 consumerProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer)
 
