@@ -1,0 +1,4 @@
+group,group={{$.Result.Group}},status={{$.Result.Status}},cluster={{$.Cluster}} totallag={{$.Result.TotalLag}},partition_count={{$.Result.TotalPartitions}}
+{{range .Result.Partitions}}
+partition,group={{$.Result.Group}},status={{.Status}},cluster={{$.Cluster}},partition={{.Partition}},topic={{.Topic}} last_offset={{.End.Offset}},current_lag={{.CurrentLag}},prev_lag={{.Start.Lag}}
+{{end}}

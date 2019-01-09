@@ -6,14 +6,14 @@ servers=[ "zookeeper:2181" ]
 timeout=6
 
 [client-profile.kafka20]
-kafka-version="0.10.1.0"
+kafka-version="1.0.0"
 client-id="burrow-client"
 
 [cluster.local]
 class-name="kafka"
 servers=[ "10.17.186.245:32783", "10.17.186.245:32784", "10.17.186.245:32785" ]
-topic-refresh=60
-offset-refresh=10
+topic-refresh=120
+offset-refresh=1#How often to refresh the broker offset for each partition, in seconds.
 
 [consumer.consumer_kafka]
 class-name="kafka"
@@ -24,6 +24,15 @@ start-latest=false
 offsets-topic="__consumer_offsets"
 group-blacklist="^(console-consumer-|python-kafka-consumer-).*$"
 
+[consumer.consumer_groovy]
+class-name="kafka"
+cluster="local"
+servers=[ "10.17.186.245:32783", "10.17.186.245:32784", "10.17.186.245:32785" ]
+client-profile="kafka20"
+start-latest=false
+offsets-topic="__consumer_offsets"
+group-whitelist="groovy.*"
+
 [consumer.consumer_zk]
 class-name="kafka_zk"
 cluster="local"
@@ -31,15 +40,14 @@ servers=[ "zookeeper:2181" ]
 zookeeper-timeout=30
 group-blacklist="^(console-consumer-|python-kafka-consumer-).*$"
 
+[notifier.influxdb]
+class-name="http"
+interval=1
+threshold=1
+send-close=false
+template-open="/etc/burrow/http-influxdb.tmpl"
+url-open="http://10.17.186.245:8086/write?db=kafka"
+group-whitelist="groovy.*"
 
 [httpserver.default]
 address=":8000"
-
-[logging]
-filename="/tmp/burrow.log"
-level="debug"
-maxsize=100
-maxbackups=30
-maxage=10
-use-localtime=false
-use-compression=true
