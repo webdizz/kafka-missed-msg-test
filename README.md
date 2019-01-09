@@ -23,3 +23,4 @@ KAFKA_HOSTS=kafka.dev:9092 groovy kafka-producer.groovy
 ## How to configure Burrow notifier
 
 https://godoc.org/github.com/linkedin/Burrow/core/protocol#ConsumerOffset
+https://github.com/linkedin/Burrow/wiki/Notifier-HTTP
