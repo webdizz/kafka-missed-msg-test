@@ -19,3 +19,7 @@ docker-compose exec kafka kafka-topics.sh --zookeeper zookeeper.dev:2181 --creat
 KAFKA_HOSTS=kafka.dev:9092 groovy kafka-producer.groovy
 KAFKA_HOSTS=kafka.dev:9092 groovy kafka-producer.groovy 
 ```
+
+## How to configure Burrow notifier
+
+https://godoc.org/github.com/linkedin/Burrow/core/protocol#ConsumerOffset
