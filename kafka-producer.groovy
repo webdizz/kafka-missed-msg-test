@@ -43,7 +43,7 @@ def sendMessage = { String topic, String message ->
 while (true) {
     String randomMsg = new Random().nextLong() + msg
     sendMessage('test', randomMsg)
-    Thread.sleep(50)
+    Thread.sleep(5)
 }
 
 producer.close()
