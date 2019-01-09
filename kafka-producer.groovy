@@ -9,8 +9,8 @@ import java.time.format.DateTimeFormatter
 
 Properties producerProps = new Properties()
 producerProps.put('zk.connect', 'localhost:2181')
-String kafkaHost = System.env['KAFKA_HOST']
-producerProps.put('bootstrap.servers', kafkaHost + ':9092')
+String kafkaHost = System.env['KAFKA_HOSTS']
+producerProps.put('bootstrap.servers', kafkaHost)
 producerProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer)
 producerProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer)
 println producerProps

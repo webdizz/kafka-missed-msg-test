@@ -12,8 +12,8 @@ import java.time.format.DateTimeFormatter
 
 Properties consumerProps = new Properties()
 consumerProps.put('zk.connect', 'localhost:2181')
-String kafkaHost = System.env['KAFKA_HOST']
-consumerProps.put('bootstrap.servers', kafkaHost + ':9092')
+String kafkaHost = System.env['KAFKA_HOSTS']
+consumerProps.put('bootstrap.servers', kafkaHost)
 consumerProps.put(ConsumerConfig.GROUP_ID_CONFIG, "my-group")
 consumerProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer)
 consumerProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer)
