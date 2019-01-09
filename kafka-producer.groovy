@@ -1,9 +1,8 @@
-import org.apache.kafka.clients.producer.Callback
-import org.apache.kafka.clients.producer.KafkaProducer
-import org.apache.kafka.clients.producer.ProducerRecord
-import org.apache.kafka.clients.producer.RecordMetadata
-import org.apache.kafka.clients.producer.ProducerConfig
+import org.apache.kafka.clients.producer.*
 import org.apache.kafka.common.serialization.StringSerializer
+
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 @Grab(group = "org.apache.kafka", module = "kafka-clients", version = "2.0.0")
 @Grab(group = 'ch.qos.logback', module = 'logback-classic', version = '1.1.2')
@@ -17,7 +16,7 @@ producerProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer
 println producerProps
 
 private String genTimeStamp() {
-    LocalDate date = LocalDate.now();
+    LocalDateTime date = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-m-s-S");
     String timeStamp = date.format(formatter);
     timeStamp
