@@ -71,7 +71,7 @@
             },
             {
               "params": [
-                "0"
+                "linear"
               ],
               "type": "fill"
             }
@@ -218,7 +218,7 @@
             },
             {
               "params": [
-                "0"
+                "linear"
               ],
               "type": "fill"
             }
@@ -306,7 +306,7 @@
     "list": []
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {
@@ -337,5 +337,5 @@
   "timezone": "",
   "title": "Kafka",
   "uid": "tdrvnrUmz",
-  "version": 10
+  "version": 11
 }
