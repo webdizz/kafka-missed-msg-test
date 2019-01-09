@@ -18,6 +18,13 @@ consumerProps.put(ConsumerConfig.GROUP_ID_CONFIG, "my-group")
 consumerProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer)
 consumerProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer)
 
+private String genTimeStamp() {
+    LocalDate date = LocalDate.now();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-m-s-S");
+    String timeStamp = date.format(formatter);
+    timeStamp
+}
+
 final int MSG_THRESHOLD = 5
 
 def consumer = new KafkaConsumer<String, String>(consumerProps)
@@ -42,18 +49,13 @@ def consumeMessage = {
         }
         //print each record.
         for (ConsumerRecord<String, String> record in consumerRecords) {
-            consumedMessages << "${record.offset()}\t${record.value.substring(0, 40)}\n"
+            String timeStamp = genTimeStamp()
+            consumedMessages << "${record.offset()}\t${timeStamp}\t${record.value.substring(0, 40)}\n"
         }
         // commits the offset of record to broker.
         consumer.commitAsync()
     }
-
 }
 
-//while (true) {
 consumeMessage()
-//}
-
 consumer.close()
-
-

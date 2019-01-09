@@ -16,6 +16,13 @@ producerProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer)
 producerProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer)
 println producerProps
 
+private String genTimeStamp() {
+    LocalDate date = LocalDate.now();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-m-s-S");
+    String timeStamp = date.format(formatter);
+    timeStamp
+}
+
 def producer = new KafkaProducer(producerProps)
 
 def sentMessagesFile = new File('sent.tsv')
@@ -24,10 +31,12 @@ def msg = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean comm
 
 def sendMessage = { String topic, String message ->
     String key = new Random().nextLong()
+    String timeStamp = genTimeStamp()
+
     producer.send(
             new ProducerRecord<String, String>(topic, key, message),
             { RecordMetadata metadata, Exception e ->
-                sentMessagesFile << "${metadata.offset()}\t${message.substring(0, 40)}\n"
+                sentMessagesFile << "${metadata.offset()}\t${timeStamp}\t${message.substring(0, 40)}\n"
             } as Callback
     )
 }
