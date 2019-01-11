@@ -1,13 +1,12 @@
-const Kafka = require('kafka-node');
 const groupId = 'delta-calculator';
-const kafkaHost = 'localhost:9092';
+const kafkaHost = 'kafka-kafka:9092';
 
 var bunyan = require('bunyan');
 var logger = bunyan.createLogger({
   name: "test-consumer",
   streams: [
     {
-      level: 'info',
+      level: 'debug',
       stream: process.stdout
     },
     {
@@ -16,6 +15,18 @@ var logger = bunyan.createLogger({
     }
   ]
 });
+
+const KafkaNodeLogging = require('kafka-node/logging');
+KafkaNodeLogging.setLoggerProvider(() => {
+  return {
+    trace: logger.trace.bind(logger, {}),
+    debug: logger.debug.bind(logger, {}),
+    info : logger.info.bind(logger, {}),
+    warn : logger.warn.bind(logger, {}),
+    error: logger.error.bind(logger, {}),
+  };
+});
+const Kafka = require('kafka-node');
 
 async function wait(ms) {
   return new Promise(resolve => {
