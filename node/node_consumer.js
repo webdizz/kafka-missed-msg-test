@@ -1,6 +1,6 @@
 const Kafka = require('kafka-node');
 const groupId = 'delta-calculator';
-const kafkaHost = 'kafka-kafka:9092';
+const kafkaHost = 'localhost:9092';
 
 var bunyan = require('bunyan');
 var logger = bunyan.createLogger({
