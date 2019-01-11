@@ -16,6 +16,8 @@ Properties consumerProps = new Properties()
 consumerProps.put('zk.connect', 'localhost:2181')
 String kafkaHost = System.env['KAFKA_HOSTS']
 consumerProps.put('bootstrap.servers', kafkaHost)
+// consumerProps.put(ConsumerConfig.GROUP_ID_CONFIG, "consumer")
+// consumerProps.put(ConsumerConfig.GROUP_ID_CONFIG, "groovy_1")
 consumerProps.put(ConsumerConfig.GROUP_ID_CONFIG, groupId)
 consumerProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer)
 consumerProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer)
@@ -58,10 +60,10 @@ def consumeMessage = {
             String timeStamp = genTimeStamp()
             //consumedMessages << "${record.offset()}\t${timeStamp}\t${record.value.substring(0, 40)}\n"
             println record.offset()
-            consumer.commitAsync()
             Thread.sleep(1000)
         }
         // commits the offset of record to broker.
+        //consumer.commitAsync()
     }
 }
 
