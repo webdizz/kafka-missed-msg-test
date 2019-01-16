@@ -18,4 +18,9 @@ AdminClient adminClient = AdminClient.create(props)
 DescribeConfigsResult configs = adminClient.describeConfigs([new ConfigResource(ConfigResource.Type.TOPIC, topic)])
 
 def obtainedConfig = configs.all().get()
-println obtainedConfig
+obtainedConfig.each {key, val->
+    println "Topic: ${key.name}"
+    val.entries.each { cfg ->
+        println "  $cfg.key=$cfg.value.value"
+    }
+}
