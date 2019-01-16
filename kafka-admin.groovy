@@ -24,3 +24,12 @@ obtainedConfig.each {key, val->
         println "  $cfg.key=$cfg.value.value"
     }
 }
+
+def consumerGroups = adminClient.listConsumerGroups().all().get()
+println "Topics, partitions and offsets"
+consumerGroups.each { cg ->
+    def consumptionMetadata = adminClient.listConsumerGroupOffsets(cg.groupId()).partitionsToOffsetAndMetadata().get()
+    consumptionMetadata.each {topicPart, offsetMeta ->
+        println "${topicPart.topic()} consumer ${cg.groupId()} of partition ${topicPart.partition()} at offset ${offsetMeta.offset()}"
+    }
+}
